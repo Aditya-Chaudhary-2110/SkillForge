@@ -1,14 +1,18 @@
 import { Router } from "express";
+
 import {
   create,
+  saveAIToNotes,
   getAll,
-  getByFolder,
   getById,
   update,
   remove,
+  getTodayStats,
 } from "../controllers/note.controller.js";
+
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import validate from "../middlewares/validate.middleware.js";
+
 import {
   createNoteValidator,
   updateNoteValidator,
@@ -20,9 +24,12 @@ router.use(verifyJWT);
 
 router.post("/", validate(createNoteValidator), create);
 
-router.get("/", getAll);
+router.post("/save-ai", saveAIToNotes);
 
-router.get("/folder/:folderId", getByFolder);
+// ================= Dashboard =================
+router.get("/today-stats", getTodayStats);
+
+router.get("/", getAll);
 
 router.get("/:id", getById);
 

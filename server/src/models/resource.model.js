@@ -10,7 +10,7 @@ const resourceSchema = new mongoose.Schema(
 
     type: {
       type: String,
-      enum: ["note", "coding", "mcq", "interview", "ai"],
+      enum: ["note", "practice", "mcq", "interview", "ai", "resource"],
       required: true,
     },
 
@@ -20,8 +20,14 @@ const resourceSchema = new mongoose.Schema(
       trim: true,
     },
 
+    description: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
     content: {
-      type: mongoose.Schema.Types.Mixed,
+      type: Object,
       required: true,
     },
 
@@ -32,7 +38,7 @@ const resourceSchema = new mongoose.Schema(
 
     isPublished: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   {

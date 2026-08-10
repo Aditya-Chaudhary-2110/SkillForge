@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 export const createNoteValidator = Joi.object({
-  folder: Joi.string().required(),
+  folder: Joi.string().optional(),
 
   title: Joi.string().trim().required(),
 

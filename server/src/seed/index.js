@@ -1,26 +1,36 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config();
 
-import connectSeedDB from "./db.js";
-import seedRoadmap from "./services/seedRoadmap.js";
-import seedResources from "./services/seedResources.js";
+import connectDB from "../database/db.js";
 
-const runSeed = async () => {
+import seedSkills from "./seeders/seedSkills.js";
+import seedModules from "./seeders/seedModules.js";
+import seedTopics from "./seeders/seedTopics.js";
+
+import skills from "./data/skills/index.js";
+import modules from "./data/modules/index.js";
+import topics from "./data/topics/index.js";
+
+const seed = async () => {
   try {
-    await connectSeedDB();
+    await connectDB();
 
-    console.log("🌱 Starting Seed...\n");
+    console.log("Starting Seed...\n");
 
-    await seedRoadmap();
+    const createdSkills = await seedSkills(skills);
 
-    await seedResources();
+    const createdModules = await seedModules(modules, createdSkills);
 
-    console.log("\n🎉 Seeding Completed Successfully");
+    await seedTopics(topics, createdModules);
+
+    console.log("\n Seeding Completed Successfully");
 
     process.exit(0);
   } catch (error) {
     console.error(error);
+
     process.exit(1);
   }
 };
 
-runSeed();
+seed();

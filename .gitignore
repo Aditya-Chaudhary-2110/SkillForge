@@ -4,3 +4,5 @@ node_modules/
 .env
 # Build Folder
 dist/
+# User uploads
+server/uploads/

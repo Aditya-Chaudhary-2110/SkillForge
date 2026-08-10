@@ -24,8 +24,16 @@ const userSchema = new mongoose.Schema(
     },
 
     avatar: {
-      type: String,
-      default: "",
+      url: {
+        type: String,
+        default:
+          "https://ui-avatars.com/api/?background=6366F1&color=ffffff&name=User",
+      },
+
+      publicId: {
+        type: String,
+        default: null,
+      },
     },
 
     role: {
@@ -41,6 +49,7 @@ const userSchema = new mongoose.Schema(
 
     refreshToken: {
       type: String,
+      default: "",
     },
   },
   {

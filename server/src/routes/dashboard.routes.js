@@ -4,6 +4,8 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.get("/", verifyJWT, getDashboard);
+router.use(verifyJWT);
+
+router.get("/", getDashboard);
 
 export default router;

@@ -1,6 +1,7 @@
 import Progress from "../models/progress.model.js";
 import Topic from "../models/topic.model.js";
 import ApiError from "../utils/ApiError.js";
+import { syncUserProgress } from "./userProgress.service.js";
 
 export const createProgress = async (userId, progressData) => {
   const { topic, isCompleted = false } = progressData;
@@ -26,6 +27,8 @@ export const createProgress = async (userId, progressData) => {
     isCompleted,
     completedAt: isCompleted ? new Date() : null,
   });
+
+  await syncUserProgress(userId);
 
   return progress;
 };
@@ -70,6 +73,8 @@ export const updateProgress = async (userId, progressId, progressData) => {
     throw new ApiError(404, "Progress not found");
   }
 
+  await syncUserProgress(userId);
+
   return progress;
 };
 
@@ -82,6 +87,8 @@ export const deleteProgress = async (userId, progressId) => {
   if (!progress) {
     throw new ApiError(404, "Progress not found");
   }
+
+  await syncUserProgress(userId);
 
   return progress;
 };

@@ -1,4 +1,7 @@
 import Skill from "../models/skill.model.js";
+import Module from "../models/module.model.js";
+import Topic from "../models/topic.model.js";
+
 import ApiError from "../utils/ApiError.js";
 
 export const createSkill = async (skillData) => {
@@ -22,7 +25,36 @@ export const createSkill = async (skillData) => {
 };
 
 export const getAllSkills = async () => {
-  return await Skill.find().sort({ order: 1 });
+  const skills = await Skill.find({
+    isPublished: true,
+  })
+    .sort({ order: 1 })
+    .lean();
+
+  const result = [];
+
+  for (const skill of skills) {
+    const modules = await Module.find({
+      skill: skill._id,
+      isPublished: true,
+    }).select("_id");
+
+    const moduleIds = modules.map((module) => module._id);
+
+    const totalTopics = await Topic.countDocuments({
+      module: {
+        $in: moduleIds,
+      },
+      isPublished: true,
+    });
+
+    result.push({
+      ...skill,
+      totalTopics,
+    });
+  }
+
+  return result;
 };
 
 export const getSkillById = async (skillId) => {

@@ -3,7 +3,11 @@ import User from "../models/user.model.js";
 import ApiError from "../utils/ApiError.js";
 import { generateAccessAndRefreshTokens } from "./token.service.js";
 
-export const registerUser = async (userData) => {
+/* ==========================================
+            REGISTER USER
+========================================== */
+
+export const registerUser = async (userData, avatarData = null) => {
   const { fullName, email, password } = userData;
 
   const existingUser = await User.findOne({ email });
@@ -16,6 +20,13 @@ export const registerUser = async (userData) => {
     fullName,
     email,
     password,
+
+    avatar: avatarData
+      ? {
+          url: avatarData.secure_url,
+          publicId: avatarData.publicId,
+        }
+      : undefined,
   });
 
   const { accessToken, refreshToken } =
@@ -36,28 +47,28 @@ export const registerUser = async (userData) => {
   };
 };
 
+/* ==========================================
+                LOGIN
+========================================== */
+
 export const loginUser = async (loginData) => {
   const { email, password } = loginData;
 
-  // Check if user exists
   const user = await User.findOne({ email });
 
   if (!user) {
     throw new ApiError(401, "Invalid email or password");
   }
 
-  // Compare password
   const isPasswordCorrect = await user.comparePassword(password);
 
   if (!isPasswordCorrect) {
     throw new ApiError(401, "Invalid email or password");
   }
 
-  // Generate new tokens
   const { accessToken, refreshToken } =
     await generateAccessAndRefreshTokens(user);
 
-  // Get sanitized user
   const loggedInUser = await User.findById(user._id).select(
     "-password -refreshToken",
   );
@@ -73,6 +84,10 @@ export const loginUser = async (loginData) => {
   };
 };
 
+/* ==========================================
+                LOGOUT
+========================================== */
+
 export const logoutUser = async (userId) => {
   await User.findByIdAndUpdate(
     userId,
@@ -87,8 +102,11 @@ export const logoutUser = async (userId) => {
   );
 };
 
+/* ==========================================
+            REFRESH TOKEN
+========================================== */
+
 export const refreshAccessToken = async (refreshToken) => {
-  // Step 1: Check if refresh token exists
   if (!refreshToken) {
     throw new ApiError(401, "Unauthorized request");
   }

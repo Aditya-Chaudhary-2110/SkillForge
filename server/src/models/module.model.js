@@ -21,6 +21,12 @@ const moduleSchema = new mongoose.Schema(
       trim: true,
     },
 
+    folder: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
     description: {
       type: String,
       required: true,
