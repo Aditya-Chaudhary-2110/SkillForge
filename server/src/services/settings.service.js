@@ -44,10 +44,11 @@ export const changePassword = async (userId, currentPassword, newPassword) => {
     throw new ApiError(400, "Current password is incorrect.");
   }
 
-  // The User model's pre-save hook hashes the password automatically.
+  // User model pre-save hook will hash the new password.
   user.password = newPassword;
 
-  // Logout from every device.
+  // Invalidate the stored refresh token so existing
+  // refresh-token based sessions cannot continue.
   user.refreshToken = undefined;
 
   await user.save();
@@ -84,6 +85,7 @@ export const deleteAccount = async (userId, password) => {
     throw new ApiError(404, "User not found.");
   }
 
+  // Verify the user's password before deleting anything.
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
   if (!isPasswordCorrect) {
@@ -91,7 +93,7 @@ export const deleteAccount = async (userId, password) => {
   }
 
   /* ------------------------------
-  Delete Resume From Supabase
+      Delete Resume From Supabase
   ------------------------------ */
 
   const resume = await Resume.findOne({ user: userId });
@@ -99,8 +101,8 @@ export const deleteAccount = async (userId, password) => {
   if (resume) {
     try {
       await deleteResumeFromSupabase(resume.publicId);
-    } catch (err) {
-      console.log("Resume deletion failed:", err.message);
+    } catch (error) {
+      console.error("Failed to delete resume from Supabase:", error.message);
     }
 
     await Resume.deleteOne({
@@ -109,7 +111,7 @@ export const deleteAccount = async (userId, password) => {
   }
 
   /* ------------------------------
-  Delete Profile
+          Delete Profile
   ------------------------------ */
 
   await Profile.deleteOne({
@@ -117,7 +119,7 @@ export const deleteAccount = async (userId, password) => {
   });
 
   /* ------------------------------
-  Delete User
+           Delete User
   ------------------------------ */
 
   await User.deleteOne({

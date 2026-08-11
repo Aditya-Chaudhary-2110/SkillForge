@@ -21,8 +21,11 @@ import {
   deleteAccount,
 } from "../../api/settings.api";
 
+import useAuth from "../../hooks/useAuth";
+
 const SettingsPage = () => {
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -153,6 +156,11 @@ const SettingsPage = () => {
 
       await deleteAccount(deletePassword);
 
+      // Clear the authenticated user immediately.
+      // This makes ProtectedRoute recognize that the user
+      // is no longer authenticated without requiring a refresh.
+      setUser(null);
+
       toast.success("Account deleted successfully.");
 
       navigate("/login", {
@@ -201,8 +209,6 @@ const SettingsPage = () => {
         ========================================== */}
 
         <div>
-          {/* Back to Dashboard */}
-
           <button
             type="button"
             onClick={() => navigate("/dashboard")}
