@@ -2,8 +2,8 @@ import {
   BookOpen,
   BrainCircuit,
   BarChart3,
-  Sparkles,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 
 const features = [
@@ -55,7 +55,7 @@ const BrandPanel = () => {
 
           <div>
             <h1 className="text-[16px] font-semibold tracking-wide text-white">
-              SkillForge
+              DevRise
             </h1>
 
             <p className="text-xs text-slate-400">AI Interview Platform</p>

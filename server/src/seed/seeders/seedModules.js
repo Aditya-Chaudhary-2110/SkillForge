@@ -22,7 +22,7 @@ const seedModules = async (modulesData, createdSkills) => {
         },
         {
           upsert: true,
-          new: true,
+          returnDocument: "after",
           setDefaultsOnInsert: true,
         },
       );

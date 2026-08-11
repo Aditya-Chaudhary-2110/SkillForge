@@ -38,12 +38,16 @@ const TopNavbar = ({ sidebarOpen, setSidebarOpen }) => {
           onClick={() => navigate("/dashboard")}
           className="flex items-center gap-3 rounded-xl px-2 py-1 transition hover:bg-slate-100"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-sm font-bold text-white">
-            ★
+          <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl">
+            <img
+              src="/favicon.svg"
+              alt="DevRise"
+              className="h-full w-full object-cover"
+            />
           </div>
 
           <h1 className="text-xl font-bold tracking-tight text-slate-900">
-            SkillForge
+            DevRise
           </h1>
         </button>
       </div>

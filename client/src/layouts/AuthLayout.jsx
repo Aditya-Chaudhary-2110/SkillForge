@@ -18,7 +18,7 @@ const AuthLayout = ({ children }) => {
               </div>
 
               <h1 className="mt-4 text-2xl font-bold text-slate-900">
-                SkillForge
+                DevRise
               </h1>
 
               <p className="mt-1 text-sm text-slate-500">

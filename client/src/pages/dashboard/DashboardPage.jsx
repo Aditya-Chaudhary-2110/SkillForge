@@ -29,7 +29,7 @@ const DashboardPage = () => {
             <div className="relative z-10 flex items-center justify-between">
               <div className="max-w-3xl">
                 <span className="inline-flex rounded-full bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-indigo-100 backdrop-blur">
-                  SkillForge Dashboard
+                  DevRise Dashboard
                 </span>
 
                 <h1 className="mt-3 text-[32px] font-extrabold tracking-tight text-white">

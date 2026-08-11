@@ -11,7 +11,8 @@ const seedSkills = async (skills) => {
       skillData,
       {
         upsert: true,
-        new: true,
+        returnDocument: "after",
+
         setDefaultsOnInsert: true,
       },
     );

@@ -141,7 +141,7 @@ const SettingsPage = () => {
     }
 
     const confirmed = window.confirm(
-      "Are you sure you want to permanently delete your SkillForge account? This action cannot be undone.",
+      "Are you sure you want to permanently delete your DevRise account? This action cannot be undone.",
     );
 
     if (!confirmed) {
@@ -234,7 +234,7 @@ const SettingsPage = () => {
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              Basic information associated with your SkillForge account.
+              Basic information associated with your DevRise account.
             </p>
           </div>
 
@@ -547,7 +547,7 @@ const SettingsPage = () => {
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
-              Permanently remove your SkillForge account and associated data.
+              Permanently remove your DevRise account and associated data.
             </p>
           </div>
 

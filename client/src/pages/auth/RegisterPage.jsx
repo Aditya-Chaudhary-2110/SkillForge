@@ -9,7 +9,7 @@ const RegisterPage = () => {
       <AuthCard
         className="-mt-8"
         title="Create Account"
-        subtitle="Start your SkillForge journey."
+        subtitle="Start your DevRise journey."
       >
         <RegisterForm />
       </AuthCard>

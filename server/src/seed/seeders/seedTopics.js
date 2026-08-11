@@ -22,7 +22,7 @@ const seedTopics = async (topicsData, createdModules) => {
         },
         {
           upsert: true,
-          new: true,
+          returnDocument: "after",
           setDefaultsOnInsert: true,
         },
       );

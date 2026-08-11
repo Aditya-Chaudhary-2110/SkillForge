@@ -10,7 +10,7 @@ const PageLoader = () => {
 
         {/* Title */}
 
-        <h2 className="mt-5 text-2xl font-bold text-slate-900">SkillForge</h2>
+        <h2 className="mt-5 text-2xl font-bold text-slate-900">DevRise</h2>
 
         <p className="mt-2 text-sm text-slate-500">
           Preparing your workspace...

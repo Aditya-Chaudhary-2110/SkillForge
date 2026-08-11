@@ -1,8 +1,8 @@
-# SkillForge
+# DevRise
 
 ## Project Vision
 
-SkillForge is an AI-powered interview preparation platform designed to help students and professionals prepare for technical interviews through structured learning, AI assistance, resume analysis, and progress tracking.
+DevRise is an AI-powered interview preparation platform designed to help students and professionals prepare for technical interviews through structured learning, AI assistance, resume analysis, and progress tracking.
 
 The application focuses on providing an end-to-end interview preparation experience by combining learning resources, AI-generated explanations, personal notes, resume feedback, and analytics in one platform.
 
